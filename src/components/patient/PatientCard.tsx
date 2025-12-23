@@ -15,7 +15,6 @@ const PatientCard = ({ patient }: PatientCardProps) => {
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-medical-mint blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
 
             <div className="relative flex items-center justify-center w-full h-full bg-background rounded-full shadow-soft ring-2 ring-primary/30 transition-transform duration-300 group-hover:scale-110 group-hover:ring-4">
-              {/* أيقونة User فقط */}
               <User className="w-10 h-10 text-primary" />
             </div>
           </div>
@@ -26,25 +25,28 @@ const PatientCard = ({ patient }: PatientCardProps) => {
               {patient.name}
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-muted-foreground">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-muted-foreground">
               {/* العمر */}
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                   <Calendar className="w-4 h-4 text-primary" />
                 </div>
                 <span className="text-sm font-cairo font-medium">{patient.age} سنة</span>
               </div>
 
-              {/* العنوان */}
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+              {/* العنوان - تم التعديل هنا ليظهر في سطرين */}
+              <div className="flex items-start gap-2">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
                   <MapPin className="w-4 h-4 text-primary" />
                 </div>
-                <span className="text-sm font-cairo font-medium truncate">{patient.address}</span>
+                <span className="text-sm font-cairo font-medium leading-relaxed line-clamp-2 break-words">
+                  {patient.address}
+                </span>
               </div>
 
+              {/* رقم الهاتف */}
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                   <Phone className="w-4 h-4 text-primary" />
                 </div>
                 <span className="text-sm font-cairo font-medium" dir="ltr">{patient.phone}</span>
