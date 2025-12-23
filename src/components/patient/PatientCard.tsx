@@ -10,11 +10,14 @@ const PatientCard = ({ patient }: PatientCardProps) => {
       <div className="medical-card p-5 sm:p-6 mx-2 sm:mx-4 rounded-3xl bg-white/70 backdrop-blur-lg shadow-xl border border-primary/10 animate-fade-in">
         <div className="flex flex-col items-center group text-center">
 
-          {/* صورة المريض - كبرناها شوية للموبايل */}
-          <div className="relative flex-shrink-0 w-24 h-24 rounded-full mb-4">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/30 to-medical-mint/30 blur-2xl opacity-60"></div>
-            <div className="relative flex items-center justify-center w-full h-full bg-white rounded-full shadow-inner ring-4 ring-primary/10">
-              <User className="w-12 h-12 text-primary" />
+          {/* صورة المريض - تم تصغيرها لتناسب الموبايل بشكل أرق */}
+          <div className="relative flex-shrink-0 w-16 h-16 rounded-full mb-3">
+            {/* تأثير التوهج الخلفي */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-medical-mint/20 blur-xl opacity-50"></div>
+
+            <div className="relative flex items-center justify-center w-full h-full bg-white rounded-full shadow-sm ring-2 ring-primary/10">
+              {/* أيقونة المستخدم بحجم أصغر */}
+              <User className="w-8 h-8 text-primary/80" />
             </div>
           </div>
 
