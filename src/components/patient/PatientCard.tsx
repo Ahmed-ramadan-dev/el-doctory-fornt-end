@@ -7,57 +7,64 @@ interface PatientCardProps {
 
 const PatientCard = ({ patient }: PatientCardProps) => {
   return (
-      <div className="medical-card p-4 sm:p-6 mx-2 sm:mx-4 rounded-2xl bg-background/60 backdrop-blur-md shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer animate-fade-in border border-primary/5">
-        {/* تحويل الـ flex ليكون عمودي في الموبايل وأفقي في الشاشات الأكبر */}
-        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 group text-center sm:text-right">
+      <div className="medical-card p-5 sm:p-6 mx-2 sm:mx-4 rounded-3xl bg-white/70 backdrop-blur-lg shadow-xl border border-primary/10 animate-fade-in">
+        <div className="flex flex-col items-center group text-center">
 
-          {/* Avatar - تحسين الحجم للموبايل */}
-          <div className="relative flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-full">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-medical-mint blur-xl opacity-40 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="relative flex items-center justify-center w-full h-full bg-background rounded-full shadow-soft ring-2 ring-primary/20 transition-transform duration-300 group-hover:scale-105">
-              <User className="w-8 h-8 sm:w-10 sm:h-10 text-primary" />
+          {/* صورة المريض - كبرناها شوية للموبايل */}
+          <div className="relative flex-shrink-0 w-24 h-24 rounded-full mb-4">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/30 to-medical-mint/30 blur-2xl opacity-60"></div>
+            <div className="relative flex items-center justify-center w-full h-full bg-white rounded-full shadow-inner ring-4 ring-primary/10">
+              <User className="w-12 h-12 text-primary" />
             </div>
           </div>
 
-          {/* معلومات المريض */}
-          <div className="flex-1 min-w-0 w-full">
-            {/* تصغير حجم الاسم قليلاً في الموبايل لمنع التداخل */}
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-4 font-cairo truncate px-2">
+          {/* اسم المريض - كبرنا الخط وخليناه أوضح */}
+          <div className="w-full mb-6">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-800 font-cairo leading-tight">
               {patient.name}
             </h2>
+          </div>
 
-            {/* استخدام Grid عمودي واحد للموبايل لضمان عدم تداخل البيانات */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          {/* البيانات - كل واحدة في سطر مستقل بعرض الكارت */}
+          <div className="w-full space-y-3">
 
-              {/* العمر */}
-              <div className="flex items-center justify-center sm:justify-start gap-3 bg-white/40 sm:bg-transparent p-2 rounded-xl border border-primary/5 sm:border-none">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                  <Calendar className="w-4 h-4 text-primary" />
-                </div>
-                <span className="text-sm font-cairo font-bold text-slate-600">{patient.age} سنة</span>
+            {/* العمر */}
+            <div className="flex items-center gap-4 bg-primary/5 p-3 rounded-2xl border border-primary/5">
+              <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center shrink-0">
+                <Calendar className="w-5 h-5 text-primary" />
               </div>
+              <div className="flex flex-col text-right">
+                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">العمر</span>
+                <span className="text-base font-black text-slate-700 font-cairo">{patient.age} سنة</span>
+              </div>
+            </div>
 
-              {/* العنوان - التعديل الأساسي لسطرين وعدم تداخل */}
-              <div className="flex items-start justify-center sm:justify-start gap-3 bg-white/40 sm:bg-transparent p-2 rounded-xl border border-primary/5 sm:border-none">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <MapPin className="w-4 h-4 text-primary" />
-                </div>
-                <span className="text-sm font-cairo font-bold text-slate-600 leading-relaxed line-clamp-2 break-words">
+            {/* العنوان - سطرين وواضح */}
+            <div className="flex items-center gap-4 bg-primary/5 p-3 rounded-2xl border border-primary/5">
+              <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center shrink-0">
+                <MapPin className="w-5 h-5 text-primary" />
+              </div>
+              <div className="flex flex-col text-right">
+                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">العنوان</span>
+                <span className="text-sm font-bold text-slate-700 font-cairo leading-relaxed line-clamp-2">
                 {patient.address}
               </span>
               </div>
+            </div>
 
-              {/* رقم الهاتف */}
-              <div className="flex items-center justify-center sm:justify-start gap-3 bg-white/40 sm:bg-transparent p-2 rounded-xl border border-primary/5 sm:border-none">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                  <Phone className="w-4 h-4 text-primary" />
-                </div>
-                <span className="text-sm font-cairo font-bold text-slate-600 tracking-wide" dir="ltr">
+            {/* التليفون - واضح وبخط مريح */}
+            <div className="flex items-center gap-4 bg-primary/5 p-3 rounded-2xl border border-primary/5">
+              <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center shrink-0">
+                <Phone className="w-5 h-5 text-primary" />
+              </div>
+              <div className="flex flex-col text-right">
+                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">رقم الهاتف</span>
+                <span className="text-base font-black text-slate-700 tracking-widest" dir="ltr">
                 {patient.phone}
               </span>
               </div>
-
             </div>
+
           </div>
         </div>
       </div>
