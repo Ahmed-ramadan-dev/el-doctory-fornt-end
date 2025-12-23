@@ -3,6 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="El-Doctory">
+
   <meta name="description" content="El-Doctory - تطبيق إدارة السجلات الطبية للمرضى" />
   <meta name="author" content="El-Doctory" />
 
@@ -20,7 +26,37 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f8fafc; /* لون الخلفية الخاص بموقعك */
+      font-family: 'Cairo', sans-serif;
+    }
+    #root:empty {
+      background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.05), transparent),
+      radial-gradient(circle at bottom left, rgba(14, 165, 233, 0.05), transparent);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* يظهر لودر بسيط جداً قبل ما رياكت يشتغل */
+    #root:empty::after {
+      content: "";
+      width: 40px;
+      height: 40px;
+      border: 4px solid #e2e8f0;
+      border-top-color: #10b981;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 
 <body>
