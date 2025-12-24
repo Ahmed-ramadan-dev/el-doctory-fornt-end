@@ -2,14 +2,13 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   Activity, Scan, FileText, PlusCircle,
-  ClipboardList, User, Stethoscope
+  ClipboardList, User, Stethoscope, Calendar, MapPin, Phone
 } from 'lucide-react';
 import { usePatient } from '@/contexts/PatientContext';
 import { getPatientInfo, getAllAnalysis, getAllScans, getAllPrescriptions } from '@/lib/api';
 import Header from '@/components/layout/Header';
 import PatientCard from '@/components/patient/PatientCard';
 import ActionCard from '@/components/dashboard/ActionCard';
-import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import toast from 'react-hot-toast';
 
 const Dashboard = () => {
@@ -83,29 +82,55 @@ const Dashboard = () => {
     }
   };
 
-  // ✅ الحماية الأولى: لو الصفحة بتحمل، اعرض السبينر ومتحاولش ترندر أي كروت
+  const basePath = `/${patientId}`;
+
+  // 1️⃣ واجهة التحميل الذكية (Skeleton Loading)
   if (isLoading || !patientInfo) {
     return (
-        <div className="min-h-screen bg-medical-pattern flex items-center justify-center font-cairo">
-          <LoadingSpinner message="جاري تحميل لوحة التحكم..." />
+        <div className="min-h-screen bg-medical-pattern pb-12 font-cairo text-right" dir="rtl">
+          <Header />
+          <div className="max-w-4xl mx-auto px-4 animate-pulse">
+            {/* كارت المريض الوهمي */}
+            <div className="bg-white/60 rounded-3xl p-6 mb-6 border border-white/50 h-48 shadow-sm">
+              <div className="flex flex-col items-center">
+                <div className="w-16 h-16 bg-slate-200 rounded-full mb-4"></div>
+                <div className="h-6 bg-slate-200 rounded-md w-1/2 mb-6"></div>
+                <div className="w-full space-y-3">
+                  <div className="h-10 bg-slate-200/50 rounded-xl w-full"></div>
+                  <div className="h-10 bg-slate-200/50 rounded-xl w-full"></div>
+                </div>
+              </div>
+            </div>
+
+            {/* إحصائيات وهمية */}
+            <div className="grid grid-cols-3 gap-3 mb-8">
+              <div className="h-24 bg-white/60 rounded-2xl border border-white/50"></div>
+              <div className="h-24 bg-white/60 rounded-2xl border border-white/50"></div>
+              <div className="h-24 bg-white/60 rounded-2xl border border-white/50"></div>
+            </div>
+
+            {/* سجلات وهمية */}
+            <div className="h-5 bg-slate-200 w-32 mb-4 rounded"></div>
+            <div className="grid grid-cols-2 gap-4 mb-10">
+              <div className="h-32 bg-white/60 rounded-2xl border border-white/50"></div>
+              <div className="h-32 bg-white/60 rounded-2xl border border-white/50"></div>
+            </div>
+          </div>
         </div>
     );
   }
 
-  const basePath = `/${patientId}`;
-
+  // 2️⃣ الواجهة الحقيقية (بتظهر فوراً بعد التحميل)
   return (
       <div className="min-h-screen bg-medical-pattern pb-12 relative overflow-hidden font-cairo text-right" dir="rtl">
         <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-primary/10 to-transparent -z-10" />
         <Header />
 
         <div className="max-w-4xl mx-auto px-4">
-          {/* ✅ الحماية الثانية: التأكد من وجود patientInfo قبل رندرة PatientCard */}
           <div className="mb-6 transform transition-all duration-500">
             {patientInfo && <PatientCard patient={patientInfo} />}
           </div>
 
-          {/* آخر زيارة طبيب */}
           {lastVisit && (
               <div className="mb-8 bg-white/80 backdrop-blur-md rounded-2xl border border-primary/20 p-4 shadow-sm animate-in zoom-in-95 duration-500">
                 <div className="flex items-center justify-between mb-3">
@@ -135,7 +160,6 @@ const Dashboard = () => {
               </div>
           )}
 
-          {/* الإحصائيات */}
           <div className="grid grid-cols-3 gap-3 mb-8">
             {[
               { label: 'تحاليل', count: stats.analysis, icon: Activity, color: 'text-blue-600', bg: 'bg-blue-50' },
@@ -150,7 +174,6 @@ const Dashboard = () => {
             ))}
           </div>
 
-          {/* السجلات الطبية */}
           <h3 className="text-md font-black text-slate-700 mb-4 flex items-center gap-2">
             <ClipboardList className="w-5 h-5 text-primary" />
             السجلات الطبية
@@ -161,7 +184,6 @@ const Dashboard = () => {
             <ActionCard title="عرض الروشتات" icon={FileText} to={`${basePath}/prescriptions`} variant="view" delay={200} />
           </div>
 
-          {/* إضافة جديد */}
           <h3 className="text-md font-black text-slate-700 mb-4 flex items-center gap-2">
             <PlusCircle className="w-5 h-5 text-medical-mint" />
             إضافة جديد
